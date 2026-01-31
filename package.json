@@ -1,0 +1,220 @@
+{
+  "name": "frontmatter-variables",
+  "displayName": "Frontmatter Variables",
+  "description": "Replace variables in markdown with YAML frontmatter values on demand. Perfect for pentesting notes, CTF templates, and reusable note structures.",
+  "version": "1.0.0",
+  "publisher": "your-publisher-id",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "yaml",
+    "frontmatter",
+    "variables",
+    "template",
+    "markdown",
+    "pentesting",
+    "ctf",
+    "templating",
+    "snippet"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Frontmatter Variables",
+      "properties": {
+        "frontmatterVariables.openDelimiter": {
+          "type": "string",
+          "default": "{{",
+          "maxLength": 10,
+          "description": "Characters that mark the start of a variable"
+        },
+        "frontmatterVariables.closeDelimiter": {
+          "type": "string",
+          "default": "}}",
+          "maxLength": 10,
+          "description": "Characters that mark the end of a variable"
+        },
+        "frontmatterVariables.defaultSeparator": {
+          "type": "string",
+          "default": ":",
+          "maxLength": 10,
+          "description": "Separator between variable name and default value (e.g., : for {{var:default}})"
+        },
+        "frontmatterVariables.missingValueText": {
+          "type": "string",
+          "default": "[MISSING]",
+          "description": "Text to use when a variable is not found in frontmatter"
+        },
+        "frontmatterVariables.supportNestedProperties": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow dot notation for nested properties (e.g., {{server.ip}})"
+        },
+        "frontmatterVariables.caseInsensitive": {
+          "type": "boolean",
+          "default": false,
+          "description": "Match variables regardless of case (e.g., {{ipaddress}} matches IPAddress)"
+        },
+        "frontmatterVariables.arrayJoinSeparator": {
+          "type": "string",
+          "default": ", ",
+          "description": "Characters used to join array values"
+        },
+        "frontmatterVariables.preserveOriginalOnMissing": {
+          "type": "boolean",
+          "default": false,
+          "description": "Keep {{variable}} instead of replacing with missing text when not found"
+        },
+        "frontmatterVariables.notificationLevel": {
+          "type": "string",
+          "enum": [
+            "all",
+            "errors",
+            "none"
+          ],
+          "enumDescriptions": [
+            "Show all notifications",
+            "Only show errors",
+            "Silent (no notifications)"
+          ],
+          "default": "all",
+          "description": "Control when notifications are shown"
+        },
+        "frontmatterVariables.highlightVariables": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color-code variables in the editor: green (exists), orange (has default), red (missing)"
+        },
+        "frontmatterVariables.highlightColors.exists": {
+          "type": "string",
+          "default": "",
+          "description": "Color for variables with values in frontmatter (empty = default green). Use hex format like #28a745"
+        },
+        "frontmatterVariables.highlightColors.missing": {
+          "type": "string",
+          "default": "",
+          "description": "Color for variables without values or defaults (empty = default red). Use hex format like #dc3545"
+        },
+        "frontmatterVariables.highlightColors.hasDefault": {
+          "type": "string",
+          "default": "",
+          "description": "Color for variables with default values (empty = default orange). Use hex format like #e6a700"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "frontmatterVariables.replaceInSelection",
+        "title": "Frontmatter Variables: Replace in Selection"
+      },
+      {
+        "command": "frontmatterVariables.replaceInDocument",
+        "title": "Frontmatter Variables: Replace All in Document"
+      },
+      {
+        "command": "frontmatterVariables.replaceInDocumentAndFilename",
+        "title": "Frontmatter Variables: Replace in Document and Filename"
+      },
+      {
+        "command": "frontmatterVariables.copyLineReplaced",
+        "title": "Frontmatter Variables: Copy Current Line (Replaced)"
+      },
+      {
+        "command": "frontmatterVariables.copySelectionReplaced",
+        "title": "Frontmatter Variables: Copy Selection (Replaced)"
+      },
+      {
+        "command": "frontmatterVariables.copyDocumentReplaced",
+        "title": "Frontmatter Variables: Copy Document (Replaced)"
+      },
+      {
+        "command": "frontmatterVariables.renameFile",
+        "title": "Frontmatter Variables: Rename File (Replace Variables)"
+      },
+      {
+        "command": "frontmatterVariables.listVariables",
+        "title": "Frontmatter Variables: List All Variables"
+      },
+      {
+        "command": "frontmatterVariables.setVariable",
+        "title": "Frontmatter Variables: Set Variable Value"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "frontmatterVariables.copyLineReplaced",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorLangId == markdown"
+      },
+      {
+        "command": "frontmatterVariables.replaceInSelection",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorLangId == markdown && editorHasSelection"
+      },
+      {
+        "command": "frontmatterVariables.replaceInDocument",
+        "key": "ctrl+shift+alt+r",
+        "mac": "cmd+shift+alt+r",
+        "when": "editorLangId == markdown"
+      },
+      {
+        "command": "frontmatterVariables.listVariables",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
+        "when": "editorLangId == markdown"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "frontmatterVariables.setVariable",
+          "when": "editorLangId == markdown",
+          "group": "frontmatter@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "sharp": "^0.34.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/frontmatter-variables"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/frontmatter-variables/issues"
+  },
+  "license": "MIT"
+}

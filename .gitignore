@@ -1,27 +1,6 @@
-# ===========================================
-# Obsidian Plugin .gitignore
-# ===========================================
-# Ignore EVERYTHING by default, then whitelist
-# only the files required for plugin submission
-# ===========================================
-
-# Ignore everything
-*
-
-# ===========================================
-# Whitelist: Required Obsidian Plugin Files
-# ===========================================
-!main.js
-!manifest.json
-!styles.css
-!README.md
-!LICENSE
-!versions.json
-!.gitignore
-
-# ===========================================
-# Whitelist: GitHub Actions
-# ===========================================
-!.github
-!.github/workflows
-!.github/workflows/release.yml
+node_modules
+out
+dist
+*.vsix
+.vscode-test
+.DS_Store
