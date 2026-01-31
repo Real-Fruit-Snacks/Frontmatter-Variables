@@ -3,10 +3,12 @@
  */
 
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { parseFrontmatterFromDocument, findFrontmatterEnd } from '../frontmatterParser';
 import { replaceVariables } from '../variableReplacer';
 import { getSettings } from '../utils/settings';
 import { notify } from '../utils/notifications';
+import { sanitizeFilename } from '../utils/fileOperations';
 
 /**
  * Replace variables in selection (or current line if no selection)
@@ -143,7 +145,6 @@ export async function replaceInDocumentAndFilename(): Promise<void> {
         
         // Calculate filename replacements
         const uri = editor.document.uri;
-        const path = require('path');
         const currentName = path.basename(uri.fsPath, path.extname(uri.fsPath));
         const filenameResult = replaceVariables(currentName, frontmatter, settings);
         
@@ -161,7 +162,6 @@ export async function replaceInDocumentAndFilename(): Promise<void> {
         
         // RENAME FIRST (for atomicity - if it fails, we abort before modifying document)
         if (hasFilenameChanges) {
-            const { sanitizeFilename } = require('../utils/fileOperations');
             const sanitizedName = sanitizeFilename(filenameResult.result);
             
             if (sanitizedName) {

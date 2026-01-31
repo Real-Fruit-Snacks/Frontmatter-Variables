@@ -2,7 +2,7 @@
  * Variable replacement engine - core logic
  */
 
-import { Frontmatter, ReplacementResult, PluginSettings, Variable, FORBIDDEN_KEYS, MAX_ARRAY_INDEX } from './types';
+import { Frontmatter, ReplacementResult, PluginSettings, Variable, FORBIDDEN_KEYS } from './types';
 
 // Cached regex pattern for performance
 let patternCache: { key: string; pattern: RegExp } | null = null;
@@ -25,7 +25,7 @@ export function getVariablePattern(settings: PluginSettings): RegExp {
         settings.closeDelimiter.length > MAX_DELIMITER_LEN ||
         settings.defaultSeparator.length > MAX_DELIMITER_LEN) {
         // Fallback to default pattern
-        return /\{\{\s*([\w.\[\]\-]+)\s*(?::\s*(.*?))?\s*\}\}/g;
+        return /\{\{\s*([\w.[\]-]+)\s*(?::\s*(.*?))?\s*\}\}/g;
     }
     
     const cacheKey = `${settings.openDelimiter}|${settings.closeDelimiter}|${settings.defaultSeparator}`;

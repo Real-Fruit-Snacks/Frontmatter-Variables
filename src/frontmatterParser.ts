@@ -77,7 +77,7 @@ export function updateFrontmatter(
     const text = document.getText();
     const hasFrontmatter = text.startsWith('---');
     
-    let frontmatter = parseFrontmatter(text);
+    const frontmatter = parseFrontmatter(text);
     
     // Apply updates using setNestedValue (we'll need to import this)
     for (const [key, value] of Object.entries(updates)) {
