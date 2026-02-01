@@ -2,6 +2,11 @@
 
 All notable changes to the Frontmatter Variables extension will be documented in this file.
 
+## [1.0.1] - 2026-02-01
+
+### Bug Fixes
+- Fixed variable highlighting to highlight all occurrences instead of only the first occurrence
+
 ## [1.0.0] - Initial Release
 
 ### Features

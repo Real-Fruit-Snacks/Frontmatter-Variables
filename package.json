@@ -2,7 +2,7 @@
   "name": "frontmatter-variables",
   "displayName": "Frontmatter Variables",
   "description": "Replace variables in markdown with YAML frontmatter values on demand. Perfect for pentesting notes, CTF templates, and reusable note structures.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "your-publisher-id",
   "icon": "images/icon.png",
   "engines": {

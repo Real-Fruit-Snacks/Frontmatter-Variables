@@ -226,7 +226,6 @@ export function scanDocumentVariables(
     const pattern = getVariablePattern(settings);
     pattern.lastIndex = 0;
     const variables: Variable[] = [];
-    const seen = new Set<string>();
     
     // Calculate line offset for frontmatter
     const frontmatterLines = text.slice(0, frontmatterEnd).split('\n').length - 1;
@@ -235,12 +234,6 @@ export function scanDocumentVariables(
     while ((match = pattern.exec(bodyPart)) !== null) {
         const varName = match[1].trim();
         const defaultValue = match[2];
-        
-        // Skip if we've already seen this variable
-        if (seen.has(varName)) {
-            continue;
-        }
-        seen.add(varName);
         
         const value = getNestedValue(frontmatter, varName, settings.caseInsensitive);
         
