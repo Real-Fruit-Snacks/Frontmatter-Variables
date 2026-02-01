@@ -3,7 +3,7 @@
   "displayName": "Frontmatter Variables",
   "description": "Replace variables in markdown with YAML frontmatter values on demand. Perfect for pentesting notes, CTF templates, and reusable note structures.",
   "version": "1.0.1",
-  "publisher": "your-publisher-id",
+  "publisher": "real-fruit-snacks",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.85.0"
@@ -211,10 +211,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/frontmatter-variables"
+    "url": "https://github.com/real-fruit-snacks/frontmatter-variables"
   },
   "bugs": {
-    "url": "https://github.com/your-username/frontmatter-variables/issues"
+    "url": "https://github.com/real-fruit-snacks/frontmatter-variables/issues"
   },
   "license": "MIT"
 }
